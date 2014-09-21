@@ -9,16 +9,14 @@ $config = [
     'modules' => [
         'spamdetector' => [
             'class' => 'app\modules\spamdetector\Module',
+            'controllerNamespace' => 'app\modules\spamdetector\controllers',
         ],
     ],
     'components' => [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'enableStrictParsing' => false,
-            'showScriptName' => true,
-            'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'spamdetector'],
-            ],
+            'showScriptName' => true
         ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
