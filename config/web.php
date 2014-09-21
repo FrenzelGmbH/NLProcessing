@@ -3,10 +3,23 @@
 $params = require(__DIR__ . '/params.php');
 
 $config = [
-    'id' => 'basic',
+    'id' => 'nlprocessing',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'modules' => [
+        'spamdetector' => [
+            'class' => 'app\modules\spamdetector\Module',
+        ],
+    ],
     'components' => [
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'enableStrictParsing' => false,
+            'showScriptName' => true,
+            'rules' => [
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'spamdetector'],
+            ],
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'K_X4RHNL28r-S2ptlwDycehqSOoI8UMA',
