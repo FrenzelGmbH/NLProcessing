@@ -2,43 +2,41 @@
 
 namespace app\modules\spamdetector\models;
 
-use yii\base\Model;
+use yii\db\ActiveRecord;
 
-class Document extends Model
+class Document extends ActiveRecord
 {
-
 	/**
-	 * the subject of the content that will be parsed
-	 * @var [type]
-	 */
-	public $subject;
-
-	/**
-	 * the sender of this content
-	 * @var [type]
-	 */
-	public $from;
-
-	/**
-	 * the message content
-	 * @var [type]
-	 */
-	public $body;
-
-	/**
-	 * the class of the document
-	 * @var [type]
-	 */
-	public $class;
-
-	public static function find()
+     * @return string the name of the table associated with this ActiveRecord class.
+     */
+	public static function tableName()
 	{
-		$model = new Document();
-		$model->subject = "Test";
-		$model->from = "philipp@frenzel.net";
-		$model->body = "Hello World";
-		$model->class = "Ham";
-		return $model;
+		return 'document';
 	}
 
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+    	return [
+    	[['subject', 'from'], 'required'],
+    	[['subject', 'from', 'body', 'class'], 'string'],
+    	[['from'],'email']
+    	];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+    	return [
+    	'id' => \Yii::t('app', 'ID'),
+    	'subject' => \Yii::t('app', 'Subject'),
+    	'from' => \Yii::t('app', 'From'),
+    	'body' => \Yii::t('app', 'Body'),
+    	'class' => \Yii::t('app', 'Class'),
+    	];
+    }
 }
